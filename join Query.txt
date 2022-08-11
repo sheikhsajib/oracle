@@ -1,0 +1,28 @@
+--//////////////// Join Query /////////////////////////////
+select last_name, department_id, department_name from employees
+join departments using (department_id);
+--//////// it is Assending by department_id //////////////////
+
+--//////////////// Natural join Almost Same Query /////////////////////
+select last_name, department_id, department_name from employees
+natural join departments; 
+--/////////Must be same all data for Natural Join /////////////////////
+
+--///////////////// Best way joining table using short from  //////////////////////////
+select e.last_name, e.department_id, d.department_name
+from employees e
+join departments d on e.department_id=d.department_id;
+--///////////////////// using short TABLE NAME /////////
+
+--////////////////// Sub Query /////////////////
+select employee_id, last_name, salary from employees
+where salary > (SELECT avg(salary)FROM EMPLOYEES)
+order by salary;
+
+
+select employee_id, last_name from employees
+WHERE department_id IN 
+          ( SELECT department_id  
+            FROM employees
+            WHERE last_name like '%u%'); 
+

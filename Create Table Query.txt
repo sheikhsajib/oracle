@@ -1,0 +1,160 @@
+--/************** Create a table in Oracle Database**********************
+create table Employee_detail(
+eid NUMBER(7),
+eName varchar2(28),
+salary NUMBER(8,2),
+hire_date DATE,
+address VARCHAR2(100)
+);
+********************* Result **************************
+Name      Null? Type          
+--------- ----- ------------- 
+EID             NUMBER(7)     
+EMANE           VARCHAR2(28)  
+SALARY          NUMBER(8,2)   
+HIRE_DATE       DATE          
+ADDRESS         VARCHAR2(100) 
+***************************** Done ************************
+
+*********************** Set Primary key in Existing Table *******************************
+ALTER TABLE employee_detail
+ADD CONSTRAINT eid_pk
+PRIMARY KEY (eid);
+************** here (CONSTRAINT eid_pk) works for view create*********************
+
+********************************* Inserting  Record using  ***********************
+
+******************* Rename Column ******************************
+ALTER Table employee_detail 
+RENAME COLUMN EMANE to ENAME;
+select * from employee_detail;
+*************************** Rename Done **********************
+
+
+*************************** Insert Row With Prompt **********************
+insert into employee_detail
+values (&eid, '&ename', &salary, '&hire_date', '&ADDRESS' );
+*************************** Insert Row With Prompt **********************
+
+commit;   <-------************* For Save *************------------->
+
+select * from employee_detail;   <------------******** For Check ***********--------------->
+
+
+*************************** Insert/Add New Column **********************
+alter table employee_detail
+add (phone varchar2(15), job_title varchar2(10));
+*************************** Here will Add two Column ****************************
+
+
+
+*************************** Rename Column Name **********************
+alter table employee_detail
+rename column phone to Phone_Number;
+
+********************** Change Data Type ****************************
+alter table
+   student
+modify
+(
+   semail    varchar2(30)	<<<<<<--- Before It was Number DataTypes ----->>>>>>>
+);
+
+********************** Change Data Type ****************************
+
+
+********************** Update after Add New Column *********************
+update employee_detail set
+phone_number = '&Number', job_title = '&Job' where eid = 101;
+********************** Update after Add New Column *********************
+
+
+
+////////////////////// CMD SQL PLUS Command /////////////////////////////////////
+hr/hr@//localhost:1521/orclpdb
+show user;
+
+
+///////////////////////////////////////////////////////////////////////////////////
+///////////////////////// Query From Student Table ////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////
+
+
+--*********************** Get second Highest Salary Query ************************
+select max(salary) from worker_details
+where salary not in (Select Max(salary) from worker_details);
+
+--*********************** Get department People Where have less than 3 people **********************
+select department, count(department) from worker_details
+group by department having count(department)<3;
+
+--*********************** Conut all departments People ***********************************
+select department, count(department) from worker_details
+group by department having count(department)>1;
+
+
+
+
+Exam 
+-- Q No 1
+Create table emp_details(
+WORKER_ID NUMBER(5),
+FIRST_NAME varchar2(18),
+LAST_NAME varchar2(18),
+JOINING_DATE DATE,
+DEPARTMENT VARCHAR2(30)
+);
+--Q No 2
+ALTER TABLE emp_details
+ADD 
+PRIMARY KEY (WORKER_ID);
+-- Q No 3
+insert into emp_details
+values (&WORKER_ID, '&FIRST_NAME', '&LAST_NAME', '&JOINING_DATE', '&DEPARTMENT' );
+-- Q No 4
+alter table emp_details
+add (Salary varchar2(15));
+
+alter table
+   emp_details
+modify
+(
+   Salary    number(8,2)
+);
+
+
+update emp_details set
+Salary = '&Salary' where WORKER_ID = &ID;
+
+-- Q No. 5
+select max(salary) from emp_details
+where salary not in (Select Max(salary) from emp_details);
+
+--Alternet Answer
+select max(salary) from emp_details
+where salary < (Select Max(salary) from emp_details);
+
+-- Q No. 6
+CREATE VIEW Worker_View AS
+SELECT WORKER_ID, First_NAME, DEPARTMENT
+FROM emp_details
+order by DEPARTMENT;
+
+commit;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

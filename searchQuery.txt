@@ -1,0 +1,147 @@
+////////////////////// join Query Normal type //////////////////////////////
+////////////////////////////////////////////////////////////////////////////
+select e.employee_id, e.last_name
+from employees e, departments d
+where e.employee_id = d.department_id
+order by e.employee_id desc,  d.department_id;
+
+
+//////////////////////////// salary with 12 month ////////////////////
+select last_name, salary, 12*salary+100
+from employees;
+
+
+
+//////////////////////////// Where Clause ////////////////////
+//////////////////////////// Specific ID / Name ////////////////////
+SELECT employee_id, last_name, job_id, department_id
+FROM employees
+WHERE department_id = 90;
+/////////////////////// Specific Name///////////////////
+SELECT last_name, job_id, department_id
+FROM employees
+WHERE last_name = 'Whalen';
+
+//////////////////////////// Conditional Where Clause ////////////////////
+SELECT last_name, salary
+FROM employees
+WHERE salary <= 3000 ;
+
+//////////////////////////// BETWEEN ////////////////////
+SELECT last_name, salary
+FROM employees
+WHERE salary BETWEEN 2500 AND 3500 ;
+
+//////////////////////////// IN ////////////////////
+SELECT employee_id, last_name, salary, manager_id
+FROM employees
+WHERE manager_id IN (100, 101, 201) ;
+
+//////////////////////////// LIKE start ////////////////////
+SELECT first_name
+FROM employees
+WHERE first_name LIKE 'S%' ;
+******************
+SELECT employee_id, last_name, job_id, salary
+FROM employees
+WHERE salary >= 10000
+AND job_id LIKE '%MAN%' ;
+
+//////////////////////////// is NULL ////////////////////
+SELECT last_name, manager_id
+FROM employees
+WHERE manager_id IS NULL ;
+
+//////////////////////////// Not IN ////////////////////
+SELECT last_name, job_id
+FROM employees
+WHERE job_id 
+NOT IN ('IT_PROG', 'ST_CLERK', 'SA_REP') ;
+
+//////////////////////////// And OR ////////////////////
+SELECT last_name, department_id, salary
+FROM employees
+WHERE department_id = 60
+OR department_id = 80
+AND salary > 10000;
+
+//////////////////////////// ORDER BY ////////////////////
+SELECT last_name, job_id, department_id, hire_date
+FROM employees
+ORDER BY hire_date ;
+
+
+//////////////////////////// Rename and Order By ////////////////////
+SELECT employee_id, last_name, salary*12 annsal
+FROM employees
+ORDER BY annsal ;
+
+//////////////////////////// Order by Multiple column ////////////////////
+SELECT last_name, department_id, salary
+FROM employees
+ORDER BY department_id, salary DESC;
+
+//////////////////////////// FETCH First 5 Row ////////////////////
+SELECT employee_id, first_name
+FROM employees
+ORDER BY employee_id
+FETCH FIRST 5 ROWS ONLY;
+
+//////////////////////////// NEXT 5 ROWS ONLY ////////////////////
+SELECT employee_id, first_name
+FROM employees
+ORDER BY employee_id
+OFFSET 5 ROWS FETCH NEXT 5 ROWS ONLY;
+
+//////////////////////////// Use Prompt or Valiable ////////////////////
+SELECT employee_id, last_name, salary, department_id
+FROM employees
+WHERE employee_id = &employee_num ;
+******************Multiple Prompt
+SELECT employee_id, last_name, job_id,&column_name
+FROM employees
+WHERE &condition
+ORDER BY &order_column ;
+
+
+
+
+
+
+
+
+--Question No 1
+create table emp_1269396(
+eid NUMBER(7),
+eName varchar2(28),
+salary NUMBER(8,2),
+hire_date DATE,
+address VARCHAR2(100)
+);
+ALTER TABLE emp_1269396
+ADD PRIMARY KEY (eid);
+
+select * from emp_1269396;
+
+--Question No 2
+SELECT department_id, AVG(salary)
+FROM employees
+GROUP BY department_id
+HAVING max(salary)>12000;
+
+--Question No 3
+SELECT first_name
+FROM employees
+WHERE first_name LIKE 'S%' ;
+
+--Question No 4
+SELECT department_id,  AVG(salary)
+FROM employees
+where job_id = 'IT_PROG'
+GROUP BY department_id;
+
+select job_id from employees;
+
+-- Question No 5
+select first_name, last_name, Hire_date from employees
+order by hire_date;
